@@ -1,0 +1,17 @@
+sceneSetups:
+- path: Assets/SplashScreen.unity
+  isLoaded: 0
+  isActive: 0
+  isSubScene: 0
+- path: Assets/Retry.unity
+  isLoaded: 0
+  isActive: 0
+  isSubScene: 0
+- path: Assets/Level01.unity
+  isLoaded: 1
+  isActive: 1
+  isSubScene: 0
+- path: Assets/FinalScreen.unity
+  isLoaded: 0
+  isActive: 0
+  isSubScene: 0
