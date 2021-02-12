@@ -199,6 +199,9 @@ Znajduje się tutaj jeden fragment kodu podpięty pod przycisk, który warto om�
     }
 ```
 
-Powyższy fragment kodu wysyła logi do Debuggera, wskazujące na to, że gracz chce wcisnąć przycisk i się wycofać. Było to o tyle przydatne, że wiedziałem kiedy przycisk został wciskany, działał, a `SceneManager` nie rozumiał co chcę mu przekazać. Nie miałem tutaj na początku również systemu obsługi wydarzeń, lecz potem program został odkryty. Kolejna linia kodu cofa gracza o trzy sceny do tyłu czyli na scenę **SplashScreen**, czyli nie wyświetla żadnego komunikatu, że gracz przegrał, pokazuje tylko ekran startowy i możliwość rozpoczęcia nowej gry, bądź wyjścia z programu.
+Powyższy fragment kodu wysyła logi do Debuggera, wskazujące na to, że gracz chce wcisnąć przycisk i się wycofać. Było to o tyle przydatne, że wiedziałem kiedy 
+przycisk został wciskany, działał, a `SceneManager` nie rozumiał co chcę mu przekazać. Nie miałem tutaj na początku również systemu obsługi wydarzeń, lecz potem 
+program został odkryty. Kolejna linia kodu cofa gracza o trzy sceny do tyłu czyli na scenę **SplashScreen**, czyli nie wyświetla żadnego komunikatu, że gracz 
+przegrał, pokazuje tylko ekran startowy i możliwość rozpoczęcia nowej gry, bądź wyjścia z programu.
 
 I to by było na tyle, dziękuję za doczytanie się aż do tego momentu i życzę miłej gry (bądź eksploitacji kodu źródłowego). :-)
