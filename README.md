@@ -105,3 +105,100 @@ wówczas kula zacznie przesuwać się w prawo (czyli o dodatnią wartość X), w
 lewo (czyli o ujemną wartość X). Jest tutaj również wyłapywanie wypadnięcia poza mapę. Bardziej łopatologicznie można stwierdzić, że w momencie kiedy pozycja gracza
 osiągnie mniejszą wartość od **-1f** na płaszczyźnie Y, wówczas wywoła się polecenie `FindObjectOfType<GameManager>().EndGame();`, które zostało zaimplementowane z
 silnika Unity.
+
+Wyświetlany aktualny **Score** to jest po prostu wartość przesunięcia na osi obiektu **Player**. Do sceny został również dodany system obsługi wydarzeń.
+```
+public class Score : MonoBehaviour
+{
+    public Transform player;
+    public Text scoreText;
+
+    void Update() {
+        scoreText.text = player.position.z.ToString("0");
+    }
+}
+```
+Jak widać po powyższym kodzie, pobiera on zmieniane koordynaty gracza, oraz tworzy zmienną tekstową dla `scoreText`, a `scoreText` cały czas się aktualizuje,
+wówczas gdy koordynat `z` zmienia się w obiekcie `player`, czyli inaczej w obiekcie gracza, a jeszcze inaczej w kuli, którą sterujemy. Ważna tutaj była
+adnotacja `using UnityEngine.UI;`, tak jak zresztą w reszcie skryptów, aby można było korzystać z dobrodziejstw silnika Unity w moich skryptach.
+
+Teraz pasuje omówić trochę bardziej system kolizji z obiektami.
+
+```
+public class PlayerCollision : MonoBehaviour
+{
+    public PlayerMovement movement;
+
+    void OnCollisionEnter (Collision collisionInfo)
+    {
+        if (collisionInfo.collider.tag == "Obstacle") {
+
+            movement.enabled = false;
+            FindObjectOfType<GameManager>().EndGame();
+            
+            
+
+            
+
+        }
+
+            if (collisionInfo.collider.tag == "Finish") {
+
+            movement.enabled = false;
+            FindObjectOfType<GameManager>().FinishGame();
+
+            
+
+        }
+    }
+}
+```
+
+No więc tak, została tutaj pobrana zmienna z innego skryptu (`PlayerMovement.cs`), oraz użyta funkcja z silnika Unity o nazwie `OnCollisionEnter`, która pobiera dwa 
+parametry `Collision` oraz `collisionInfo`. Ja dodałem dwa przypadki, w których program sprawdza kolizję dla dwóch tagów obiektów `Obstacle` oraz `Finish`. `Obstacle` 
+jest odpowiedzialny za to, aby zakończyć rozgrywkę i wywołać funkcję `EndGame()`, natomiast `Finish` jest odpowiedzialny za to, aby wywołać funkcję `FinishGame()`, 
+aby ukończyć grę.
+
+W grze zostało również dodane dynamiczne oświetlenie, dzięki któremu obiekty rzucają cień, a nawet posiadają na sobie w miejscach, gdzie światło nie dociera.
+
+```
+public class FollowPlayer : MonoBehaviour
+{
+    public Transform player;
+    public Vector3 offset;
+    // Update is called once per frame
+    void Update()
+    {
+        transform.position = player.position + offset;
+        
+    }
+}
+```
+
+Nie wspominałem nic o powyższym snippecie kodu, a jest on również bardzo ważny. Aktualizuje się cały czas, dzięki czemu kamera porusza się za kulką. Funkcja pobiera
+koordynaty z obiektu `player`, dzięki czemu nie kręci się w okół kuli, a wyłącznie porusza się za nią o konkretny `offset`. Gdy stworzymy taki skrypt,
+musimy go podpiąć pod `Main Camera`, aby funkcjonował, a następnie poprawnie go ustawić. Po poprawnym podpięciu ustawiłem offsety, z racji iż jest to `Vector3`, to
+poprosi nas o podanie trzech zmiennych `X`, `Y`, `Z`. Uznałem, że zmienianie `X` nie ma sensu, ponieważ użytkownik nie musi patrzeć z boku jak piłka bansuje, miałoby
+to sens w przypadku tworzenia gier wyścigowych, gdzie gracz mógłby mieć kamerę przy felgach, jednak `X` nie grał tutaj roli. `Y` ustawiłem na `1`, aby gracz był
+w stanie widzieć coś poza odbijającą się kulą, a z racji że obiekty były w oddali, to miało to sens, aby widzieć więcej terenu, inaczej jedyne co użytkownik by
+widział, to odbijającą się kulę. Parametr `Z` ustawiłem na `-5`, bo gdybym ustawił go na dodatni, to kamera byłaby przed kulą, a myślę, że użytkownik wolałby widzieć 
+jak kula się odbija i czy właśnie nie wpada na przeszkodę, niż gdyby miał nie wiedzieć co dzieje się z jego kulą.
+
+# FinalScreen
+Określiłbym to jako scenę finałową, znajduje się tam komunikat **CONGRATULATIONS! YOU WON!**, więc gracz zostaje pochwalony co mu wynagradza trud poświęcony na
+przejście jednego poziomu tej gry. Wyskakuje mu również przycisk, który jest niebieski, a na nim napisane jest **MENU**. Nie ma tutaj niczego szczególnego. Tak jak w 
+reszcie dodałem rzut kamery, oświetlenie, którego z resztą nie widać, system obsługi wydarzeń.
+
+Znajduje się tutaj jeden fragment kodu podpięty pod przycisk, który warto omówić.
+
+```
+    public void GoBackToMenu()
+    {
+        Debug.Log("BACK");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -3);
+    }
+```
+
+Powyższy fragment kodu wysyła logi do Debuggera, wskazujące na to, że gracz chce wcisnąć przycisk i się wycofać. Było to o tyle przydatne, że wiedziałem kiedy przycisk został wciskany, działał, a `SceneManager` nie rozumiał co chcę mu przekazać. Nie miałem tutaj na początku również systemu obsługi wydarzeń, lecz potem program został odkryty. Kolejna linia kodu cofa gracza o trzy sceny do tyłu czyli na scenę **SplashScreen**, czyli nie wyświetla żadnego komunikatu, że gracz przegrał, pokazuje tylko ekran startowy i możliwość rozpoczęcia nowej gry, bądź wyjścia z programu.
+
+I to by było na tyle, dziękuję za doczytanie się aż do tego momentu i życzę miłej gry (bądź eksploitacji kodu źródłowego). :-)
