@@ -102,7 +102,7 @@ przypisany do tego skryptu. Nadpisałem również zmienne takie jak **fowardForc
 poruszanie się na osi X. Również widać tutaj zaimplementowane z silnika Unity rozwiązanie na sterowanie kulą. W przypadku gdy użytkownik wprowadzi klawisz **d**,
 wówczas kula zacznie przesuwać się w prawo (czyli o dodatnią wartość X), w przypadku gdy użytkownik wprowadzi klawisz **a**, wówczas kula zacznie przesuwać się w
 lewo (czyli o ujemną wartość X). Jest tutaj również wyłapywanie wypadnięcia poza mapę. Bardziej łopatologicznie można stwierdzić, że w momencie, kiedy pozycja gracza
-osiągnie mniejszą wartość od **-1f** na płaszczyźnie Y, wówczas wywoła się polecenie 'FindObjectOfType<GameManager&gt;().EndGame();', które zostało zaimplementowane z
+osiągnie mniejszą wartość od **-1f** na płaszczyźnie Y, wówczas wywoła się polecenie `FindObjectOfType<GameManager&gt;().EndGame();`, które zostało zaimplementowane z
 silnika Unity.
 
 Wyświetlany aktualny **Score** to jest po prostu wartość przesunięcia na osi obiektu **Player**. Do sceny został również dodany system obsługi wydarzeń.
@@ -175,12 +175,12 @@ public class FollowPlayer : MonoBehaviour
 ```
 
 Nie wspominałem nic o powyższym snippecie kodu, a jest on również bardzo ważny. Aktualizuje się cały czas, dzięki czemu kamera porusza się za kulką. Funkcja pobiera
-koordynaty z obiektu 'player', dzięki czemu nie kręci się wokół kuli, a wyłącznie porusza się za nią o konkretny 'offset'. Gdy stworzymy taki skrypt,
-musimy go podpiąć pod 'Main Camera', aby funkcjonował, a następnie poprawnie go ustawić. Po poprawnym podpięciu ustawiłem offsety, z racji, iż jest to 'Vector3', to
-poprosi nas o podanie trzech zmiennych 'X', 'Y', 'Z'. Uznałem, że zmienianie 'X' nie ma sensu, ponieważ użytkownik nie musi patrzeć z boku, jak piłka skacze, miałoby
-to sens w przypadku tworzenia gier wyścigowych, gdzie gracz mógłby mieć kamerę przy felgach, jednak 'X' nie grał tutaj roli. 'Y' ustawiłem na '1', aby gracz był
+koordynaty z obiektu `player`, dzięki czemu nie kręci się wokół kuli, a wyłącznie porusza się za nią o konkretny `offset`. Gdy stworzymy taki skrypt,
+musimy go podpiąć pod `Main Camera`, aby funkcjonował, a następnie poprawnie go ustawić. Po poprawnym podpięciu ustawiłem offsety, z racji, iż jest to `Vector3`, to
+poprosi nas o podanie trzech zmiennych `X`, `Y`, `Z`. Uznałem, że zmienianie `X` nie ma sensu, ponieważ użytkownik nie musi patrzeć z boku, jak piłka skacze, miałoby
+to sens w przypadku tworzenia gier wyścigowych, gdzie gracz mógłby mieć kamerę przy felgach, jednak `X` nie grał tutaj roli. `Y` ustawiłem na `1`, aby gracz był
 w stanie widzieć coś poza odbijającą się kulą, a z racji, że obiekty były w oddali, to miało to sens, aby widzieć więcej terenu, inaczej jedyne co użytkownik by
-widział, to odbijającą się kulę. Parametr 'Z' ustawiłem na '-5', bo gdybym ustawił go na dodatni, to kamera byłaby przed kulą, a myślę, że użytkownik wolałby widzieć, jak kula się odbija i czy właśnie nie wpada na przeszkodę, niż gdyby miał nie wiedzieć co dzieje się z jego kulą.
+widział, to odbijającą się kulę. Parametr `Z` ustawiłem na `-5`, bo gdybym ustawił go na dodatni, to kamera byłaby przed kulą, a myślę, że użytkownik wolałby widzieć, jak kula się odbija i czy właśnie nie wpada na przeszkodę, niż gdyby miał nie wiedzieć co dzieje się z jego kulą.
 
 # FinalScreen
 Określiłbym to jako scenę finałową, znajduje się tam komunikat **CONGRATULATIONS! YOU WON!**, więc gracz zostaje pochwalony, co mu wynagradza trud poświęcony na
@@ -198,7 +198,7 @@ Znajduje się tutaj jeden fragment kodu podpięty pod przycisk, który warto om�
 ```
 
 Powyższy fragment kodu wysyła logi do Debuggera, wskazujące na to, że gracz chce wcisnąć przycisk i się wycofać. Było to o tyle przydatne, że wiedziałem, kiedy
-przycisk był wciskany, działał, a 'SceneManager' nie rozumiał, co chcę mu przekazać. Nie miałem tutaj na początku również systemu obsługi wydarzeń, lecz potem
+przycisk był wciskany, działał, a `SceneManager` nie rozumiał, co chcę mu przekazać. Nie miałem tutaj na początku również systemu obsługi wydarzeń, lecz potem
 program został odkryty. Kolejna linia kodu cofa gracza o trzy sceny do tyłu, czyli na scenę **SplashScreen**, czyli nie wyświetla żadnego komunikatu, że gracz
 przegrał, pokazuje tylko ekran startowy i możliwość rozpoczęcia nowej gry, bądź wyjścia z programu.
 
